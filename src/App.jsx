@@ -162,7 +162,7 @@ export default function App() {
 
           if (isVisible) {
             newVisibleImages.add(index);
-            
+            console.log(imgRect);
             // 이미지가 뷰포트 중앙에 가까우면 거리 계산
             const distanceFromCenter = Math.abs(imgCenter - viewportCenter);
             if (distanceFromCenter < 200) { // 200px 이내면 중앙으로 간주
