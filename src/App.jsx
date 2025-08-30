@@ -39,11 +39,11 @@ export default function App() {
   useEffect(() => {
     if (uploadedImages.length > 0) {
       try {
-        // Compress images before saving to localStorage
-        const compressedImages = uploadedImages.map(img => ({
-          ...img,
-          src: img.src.length > 1000000 ? img.src.substring(0, 1000000) + '...' : img.src // Limit to ~1MB per image
-        }));
+                          // Save images to localStorage (removed harsh size limitation)
+                  const compressedImages = uploadedImages.map(img => ({
+                    ...img,
+                    src: img.src // Keep full image quality
+                  }));
         
         localStorage.setItem('uploadedImages', JSON.stringify(compressedImages));
         console.log('Images saved to localStorage successfully');
@@ -392,8 +392,8 @@ export default function App() {
       delete: {
         title: "정말로 당신의 걸작을 숨기시겠습니까?",
         subtitle: "당신의 예술 작품이 그립겠어요 :(",
-        confirm: "yea, i wanna delete.",
-        cancel: "well, i'll keep it for now"
+        confirm: "응, 삭제할게.",
+        cancel: "음, 일단 보관할게"
       }
     }
   };
@@ -502,7 +502,7 @@ export default function App() {
           
           // Draw and resize image maintaining original aspect ratio
           ctx.drawImage(img, 0, 0, newWidth, targetHeight);
-          const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.8); // 80% quality for better image quality
+          const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.95); // 95% quality for high resolution
           
           const newImage = {
             src: compressedDataUrl,
@@ -979,8 +979,8 @@ export default function App() {
 
       {/* Delete Confirmation Modal */}
       {showDeleteModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4">
-          <div className="bg-white text-gray-800 rounded-lg p-6 max-w-md w-full mx-4">
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white bg-opacity-70 text-gray-800 rounded-lg p-6 max-w-lg w-full mx-4">
             <div className="text-center">
               <h3 className="text-xl font-bold mb-2">{t.delete.title}</h3>
               <p className="text-gray-600 mb-6">{t.delete.subtitle}</p>
