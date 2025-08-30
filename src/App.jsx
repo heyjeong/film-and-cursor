@@ -12,7 +12,11 @@ export default function App() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
-  const [language, setLanguage] = useState('en'); // 'en' or 'kor'
+  const [language, setLanguage] = useState(() => {
+    // Try to get language from localStorage, default to 'en'
+    const savedLanguage = localStorage.getItem('language');
+    return savedLanguage || 'en';
+  }); // 'en' or 'kor'
   const fileInputRef = useRef(null);
   const scrollContainerRef = useRef(null);
   const imageRefs = useRef([]);
@@ -52,7 +56,11 @@ export default function App() {
     }
   }, [uploadedImages]);
 
-
+  // Save language preference to localStorage
+  useEffect(() => {
+    localStorage.setItem('language', language);
+    console.log('Language changed to:', language);
+  }, [language]);
 
   useEffect(() => {
     const checkScreenSize = () => {
