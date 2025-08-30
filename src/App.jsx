@@ -12,6 +12,8 @@ export default function App() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [imageToDelete, setImageToDelete] = useState(null);
   const [language, setLanguage] = useState(() => {
     // Try to get language from localStorage, default to 'en'
     const savedLanguage = localStorage.getItem('language');
@@ -360,6 +362,12 @@ export default function App() {
       },
       modal: {
         close: "×"
+      },
+      delete: {
+        title: "정말로 당신의 걸작을 숨기시겠습니까?",
+        subtitle: "당신의 예술 작품이 그립겠어요 :(",
+        confirm: "네, 삭제합니다",
+        cancel: "아니요, 보관합니다"
       }
     },
     kor: {
@@ -380,6 +388,12 @@ export default function App() {
       },
       modal: {
         close: "×"
+      },
+      delete: {
+        title: "정말로 당신의 걸작을 숨기시겠습니까?",
+        subtitle: "당신의 예술 작품이 그립겠어요 :(",
+        confirm: "네, 삭제합니다",
+        cancel: "아니요, 보관합니다"
       }
     }
   };
@@ -559,7 +573,23 @@ export default function App() {
 
   // Remove uploaded image
   const removeUploadedImage = (index) => {
-    setUploadedImages(prev => prev.filter((_, i) => i !== index));
+    setImageToDelete(index);
+    setShowDeleteModal(true);
+  };
+
+  // Actually delete the image after confirmation
+  const confirmDeleteImage = () => {
+    if (imageToDelete !== null) {
+      setUploadedImages(prev => prev.filter((_, i) => i !== imageToDelete));
+      setImageToDelete(null);
+      setShowDeleteModal(false);
+    }
+  };
+
+  // Cancel delete operation
+  const cancelDeleteImage = () => {
+    setImageToDelete(null);
+    setShowDeleteModal(false);
   };
 
   // Clear all uploaded images and localStorage
@@ -943,6 +973,33 @@ export default function App() {
               className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             />
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white text-gray-800 rounded-lg p-6 max-w-md w-full mx-4">
+            <div className="text-center">
+              <h3 className="text-xl font-bold mb-2">{t.delete.title}</h3>
+              <p className="text-gray-600 mb-6">{t.delete.subtitle}</p>
+              
+              <div className="flex space-x-4 justify-center">
+                <button
+                  onClick={confirmDeleteImage}
+                  className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200"
+                >
+                  {t.delete.confirm}
+                </button>
+                <button
+                  onClick={cancelDeleteImage}
+                  className="px-6 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors duration-200"
+                >
+                  {t.delete.cancel}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}
