@@ -367,32 +367,34 @@ export default function App() {
         title: "Are you really gonna hide your masterpiece?",
         subtitle: "We'll miss ur work of art :(",
         confirm: "yea, i wanna delete.",
-        cancel: "well, i'll keep it for now"
+        cancel: "well, i'll keep it for now",
+        buttonTitle: "Remove image"
       }
     },
     kor: {
       title: "망한 필름 경연대회",
       uploadArea: {
         title: "망한 필름 사진 올려줘!",
-        formats: "지원 형식: PNG, JPEG, JPG",
-        maxSize: "최대 파일 크기: 이미지당 10MB"
+        formats: "PNG, JPEG, JPG only",
+        maxSize: "up to 10MB"
       },
       toast: "아름다운 망작을 공유해주셔서 감사합니다. 등록되었습니다. 🎬",
       upload: {
         uploading: "업로드 중...",
         error: {
-          invalidType: "잘못된 파일 형식: {name}. PNG, JPEG, JPG 파일만 허용됩니다.",
-          tooLarge: "파일이 너무 큽니다: {name}. 최대 크기는 10MB입니다.",
-          failed: "{name} 처리에 실패했습니다"
+          invalidType: "잘못된 파일 형식: {name}. PNG, JPEG, JPG 파일만 올려줘.",
+          tooLarge: "파일이 너무 커용: {name}. 최대 크기는 10MB.",
+          failed: "{name} 뭔가 문제가 있어요."
         }
       },
       modal: {
         close: "×"
       },
       delete: {
-        title: "정말로 당신의 걸작을 숨기시겠습니까?",
-        subtitle: "당신의 예술 작품이 그립겠어요 :(",
-        confirm: "응, 삭제할게.",
+        title: "정말로 당신의 걸작을 숨길건가요?",
+        subtitle: "당신의 작품이 벌써 보고싶네요... :(",
+        confirm: "삭제할래요",
+        buttonTitle: "이미지 삭제",
         cancel: "음, 일단 보관할게"
       }
     }
@@ -715,7 +717,7 @@ export default function App() {
                       }
                     }}
                     className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-gray-400 hover:text-gray-600 rounded w-8 h-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 z-20 "
-                    title="Remove image"
+                    title={t.delete.buttonTitle}
                   >
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                   </button>
@@ -816,7 +818,7 @@ export default function App() {
                       }
                     }}
                     className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-gray-400 hover:text-gray-600 rounded w-8 h-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 z-20 "
-                    title="Remove image"
+                    title={t.delete.buttonTitle}
                   >
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                   </button>
