@@ -364,10 +364,10 @@ export default function App() {
         close: "×"
       },
       delete: {
-        title: "정말로 당신의 걸작을 숨기시겠습니까?",
-        subtitle: "당신의 예술 작품이 그립겠어요 :(",
-        confirm: "네, 삭제합니다",
-        cancel: "아니요, 보관합니다"
+        title: "Are you really gonna hide your masterpiece?",
+        subtitle: "We'll miss ur work of art :(",
+        confirm: "yea, i wanna delete.",
+        cancel: "well, i'll keep it for now"
       }
     },
     kor: {
@@ -392,8 +392,8 @@ export default function App() {
       delete: {
         title: "정말로 당신의 걸작을 숨기시겠습니까?",
         subtitle: "당신의 예술 작품이 그립겠어요 :(",
-        confirm: "네, 삭제합니다",
-        cancel: "아니요, 보관합니다"
+        confirm: "yea, i wanna delete.",
+        cancel: "well, i'll keep it for now"
       }
     }
   };
@@ -979,7 +979,7 @@ export default function App() {
 
       {/* Delete Confirmation Modal */}
       {showDeleteModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4">
           <div className="bg-white text-gray-800 rounded-lg p-6 max-w-md w-full mx-4">
             <div className="text-center">
               <h3 className="text-xl font-bold mb-2">{t.delete.title}</h3>
@@ -988,13 +988,15 @@ export default function App() {
               <div className="flex space-x-4 justify-center">
                 <button
                   onClick={confirmDeleteImage}
-                  className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200"
+                  className="px-6 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors duration-200"
+                  style={{ borderRadius: '999px' }}
                 >
                   {t.delete.confirm}
                 </button>
                 <button
                   onClick={cancelDeleteImage}
-                  className="px-6 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors duration-200"
+                  className="px-6 py-2 bg-gray-300 text-gray-700 rounded-full hover:bg-gray-400 transition-colors duration-200"
+                  style={{ borderRadius: '999px' }}
                 >
                   {t.delete.cancel}
                 </button>
