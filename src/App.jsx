@@ -15,10 +15,10 @@ export default function App() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [imageToDelete, setImageToDelete] = useState(null);
   const [language, setLanguage] = useState(() => {
-    // Try to get language from localStorage, default to 'en'
+    // Try to get language from localStorage, default to 'jp'
     const savedLanguage = localStorage.getItem('language');
-    return savedLanguage || 'en';
-  }); // 'en' or 'kor'
+    return savedLanguage || 'jp';
+  }); // 'en', 'kor', or 'jp'
   const fileInputRef = useRef(null);
   const scrollContainerRef = useRef(null);
   const imageRefs = useRef([]);
@@ -397,6 +397,33 @@ export default function App() {
         buttonTitle: "이미지 삭제",
         cancel: "음, 일단 보관할게"
       }
+    },
+    jp: {
+      title: "悪い映画祭",
+      uploadArea: {
+        title: "あなたの悪い映画を共有してください！",
+        formats: "サポートフォーマット: PNG, JPEG, JPG",
+        maxSize: "1枚あたりの最大ファイルサイズ: 10MB"
+      },
+      toast: "あなたの美しいフラップを共有してくれてありがとう！登録完了！ 🎬",
+      upload: {
+        uploading: "アップロード中...",
+        error: {
+          invalidType: "ファイルタイプが無効です: {name}。PNG、JPEG、JPGファイルのみを使用できます。",
+          tooLarge: "ファイルが大きすぎます: {name}。最大サイズは10MBです。",
+          failed: "{name} に問題が発生しました。"
+        }
+      },
+      modal: {
+        close: "×"
+      },
+      delete: {
+        title: "本当にあなたの傑作を隠しますか？",
+        subtitle: "あなたの作品はすでに見たいです... :(",
+        confirm: "削除します",
+        buttonTitle: "画像を削除",
+        cancel: "ええと、とりあえず保存します"
+      }
     }
   };
 
@@ -656,11 +683,11 @@ export default function App() {
         {/* Language Switcher */}
         <div className="absolute top-4 right-4">
           <button
-            onClick={() => setLanguage(language === 'en' ? 'kor' : 'en')}
+            onClick={() => setLanguage(language === 'en' ? 'kor' : language === 'kor' ? 'jp' : 'en')}
             className="text-gray-400 hover:text-white px-3 py-2 text-sm font-medium transition-colors duration-200"
             style={{ opacity: 0.7 }}
           >
-            {language === 'en' ? '한국어' : 'English'}
+            {language === 'en' ? '한국어' : language === 'kor' ? '日本語' : 'English'}
           </button>
         </div>
         
@@ -820,7 +847,7 @@ export default function App() {
                     className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-gray-400 hover:text-gray-600 rounded w-8 h-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 z-20 "
                     title={t.delete.buttonTitle}
                   >
-                    <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>{language === "en" ? "delete?" : "삭제할래요"}
+                    <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>{language === "en" ? "delete?" : language === "kor" ? "삭제할래요" : "削除？"}
                   </button>
                 )}
               </div>
